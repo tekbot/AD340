@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AD340 - HW1</string>
+    <string name="about_me">
+        "My name is Jeremy Duke.  I'm a DevOps Engineer and software developer at a local startup called Chatbox.  I'm in the part time AD cohort at NSC and will be graduating after the Spring quarter 2018.
+
+        I've written a lot of code but never worked in mobile.  I'm excited to take this course!"
+    </string>
+</resources>
