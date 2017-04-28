@@ -8,13 +8,13 @@ import android.widget.TextView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
-    String[] SubjectValues;
+    String[][] SubjectValues;
     Context context;
     View view1;
     ViewHolder viewHolder1;
     TextView textView;
 
-    public RecyclerViewAdapter(Context context1,String[] SubjectValues1){
+    public RecyclerViewAdapter(Context context1,String[][] SubjectValues1){
         SubjectValues = SubjectValues1;
         context = context1;
     }
@@ -36,7 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
-        holder.textView.setText(SubjectValues[position]);
+        holder.textView.setText(SubjectValues[position][0]);
     }
 
     @Override
