@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
     }
 
     /** Called when the user taps a grid button */
