@@ -1,6 +1,7 @@
 package com.example.jeremy.hw4_navanddialogs;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,11 +66,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_setting) {
-            Toast.makeText(MainActivity.this, "Settings Menu", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.action_recycler) {
+            Intent recyclerIntent = new Intent(this, RecyclerActivity.class);
+            startActivity(recyclerIntent);
         }
         if (item.getItemId() == R.id.action_about) {
-            Toast.makeText(MainActivity.this, "About Us", Toast.LENGTH_SHORT).show();
+            Intent aboutIntent = new Intent(this, AboutActivity.class);
+            startActivity(aboutIntent);
         }
         return super.onOptionsItemSelected(item);
     }
