@@ -6,7 +6,4 @@
     <string name="demo_list_header">Demos</string>
     <string name="title_activity_recycler">RecyclerActivity</string>
     <string name="title_activity_list">ListActivity</string>
-    <string name="setting">Setting</string>
-    <string name="menu_action_setting">Settings</string>
-    <string name="about_us">About Us</string>
 </resources>
