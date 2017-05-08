@@ -3,9 +3,15 @@ package com.example.jeremy.networkoperationstutorial;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import static android.support.v4.net.ConnectivityManagerCompat.RESTRICT_BACKGROUND_STATUS_DISABLED;
+import static android.support.v4.net.ConnectivityManagerCompat.RESTRICT_BACKGROUND_STATUS_ENABLED;
+import static android.support.v4.net.ConnectivityManagerCompat.RESTRICT_BACKGROUND_STATUS_WHITELISTED;
 
 public class MainActivity extends FragmentActivity implements DownloadCallback {
 
@@ -26,6 +32,7 @@ public class MainActivity extends FragmentActivity implements DownloadCallback {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +42,19 @@ public class MainActivity extends FragmentActivity implements DownloadCallback {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean isOnline() {
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (connMgr.isActiveNetworkMetered()) {
+            // Checks user’s Data Saver settings.
+            switch (connMgr.getRestrictBackgroundStatus()) {
+                case RESTRICT_BACKGROUND_STATUS_ENABLED:
+                case RESTRICT_BACKGROUND_STATUS_WHITELISTED:
+                case RESTRICT_BACKGROUND_STATUS_DISABLED:
+                    return false;
+            }
+        }
         return (networkInfo != null && networkInfo.isConnected());
     }
 
