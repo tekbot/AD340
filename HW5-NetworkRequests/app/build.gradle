@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.example.jeremy.hw4_navanddialogs"
+        applicationId "com.example.jeremy.hw5_networkrequests"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
@@ -28,4 +28,5 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.3.1'
+    compile 'com.android.volley:volley:1.0.0'
 }

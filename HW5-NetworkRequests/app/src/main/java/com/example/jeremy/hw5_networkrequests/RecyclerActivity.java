@@ -6,9 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class RecyclerActivity extends AppCompatActivity {
     private static final String TAG = "RecyclerActivity";
@@ -16,7 +28,7 @@ public class RecyclerActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter recyclerViewAdapter;
     RecyclerView.LayoutManager recylerViewLayoutManager;
-    String[][] books = {
+    String[][] strings = {
             {"Doctorow, Cory","Overclocked"},
             {"Doctorow, Cory","Down and Out in the Magic Kingdom"},
             {"Stross, Charles","Saturn's Children"},
@@ -44,6 +56,7 @@ public class RecyclerActivity extends AppCompatActivity {
             {"Stephenson, Neal", "The System of the World"},
             {"Stephenson, Neal", "Seveneves"}
     };
+    String[][] responseData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,19 +76,57 @@ public class RecyclerActivity extends AppCompatActivity {
         recylerViewLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(recylerViewLayoutManager);
 
-        recyclerViewAdapter = new CustomAdapter();
-        recyclerView.setAdapter(recyclerViewAdapter);
+        //Network Stuff
+        String url = "http://brisksoft.us/ad340/android_terms.json";
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonArrayRequest jsonRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                String res = response.toString();
+                Log.d(TAG, "Volley Success: " + res);
+                responseData = new String[response.length()][2];
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject blob = (JSONObject) response.get(i);
+                        responseData[i][0] = blob.getString("title");
+                        String desc = blob.getString("description");
+                        String subtitle = blob.getString("subtitle");
+                        if (desc.equals("")) {
+                            if (subtitle.equals("")) {
+                                desc = "No Description";
+                            } else {
+                                desc = subtitle;
+                            }
+                        }
+                        responseData[i][1] = desc;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                strings = responseData;
+                recyclerViewAdapter = new CustomAdapter();
+                recyclerView.setAdapter(recyclerViewAdapter);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "JSONArrayRequest Error: " + error.getMessage());
+                recyclerViewAdapter = new CustomAdapter();
+                recyclerView.setAdapter(recyclerViewAdapter);}
+        });
+        queue.add(jsonRequest);
+        //End Network Stuff
     }
 
     public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
         public class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
-            TextView mAuthor;
-            TextView mTitle;
+            TextView sub1;
+            TextView sub2;
             public ViewHolder(View v) {
                 super(v);
-                mAuthor = (TextView) v.findViewById(R.id.subject_1);
-                mTitle = (TextView) v.findViewById(R.id.subject_2);
+                sub1 = (TextView) v.findViewById(R.id.subject_1);
+                sub2 = (TextView) v.findViewById(R.id.subject_2);
             }
         }
 
@@ -92,19 +143,17 @@ public class RecyclerActivity extends AppCompatActivity {
         // Replace the contents of a view (invoked by the layout manager)
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            // - get element from your dataset at this position
-            // - replace the contents of the view with that element
             String separator = "    -   ";
-            String author = books[position][0] + separator;
-            String title = books[position][1];
-            holder.mAuthor.setText(author);
-            holder.mTitle.setText(title);
+            String author = strings[position][0] + separator;
+            String title = strings[position][1];
+            holder.sub1.setText(author);
+            holder.sub2.setText(title);
         }
 
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
-            return books.length;
+            return strings.length;
         }
     }
 }
