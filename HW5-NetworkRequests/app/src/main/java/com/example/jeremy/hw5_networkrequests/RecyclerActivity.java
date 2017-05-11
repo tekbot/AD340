@@ -1,6 +1,8 @@
 package com.example.jeremy.hw5_networkrequests;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -79,43 +82,56 @@ public class RecyclerActivity extends AppCompatActivity {
         //Network Stuff
         String url = "http://brisksoft.us/ad340/android_terms.json";
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonArrayRequest jsonRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                String res = response.toString();
-                Log.d(TAG, "Volley Success: " + res);
-                responseData = new String[response.length()][2];
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        JSONObject blob = (JSONObject) response.get(i);
-                        responseData[i][0] = blob.getString("title");
-                        String desc = blob.getString("description");
-                        String subtitle = blob.getString("subtitle");
-                        if (desc.equals("")) {
-                            if (subtitle.equals("")) {
-                                desc = "No Description";
-                            } else {
-                                desc = subtitle;
+        if (isOnline()) {
+            JsonArrayRequest jsonRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    String res = response.toString();
+                    Log.d(TAG, "Volley Success: " + res);
+                    responseData = new String[response.length()][2];
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            JSONObject blob = (JSONObject) response.get(i);
+                            responseData[i][0] = blob.getString("title");
+                            String desc = blob.getString("description");
+                            String subtitle = blob.getString("subtitle");
+                            if (desc.equals("")) {
+                                if (subtitle.equals("")) {
+                                    desc = "No Description";
+                                } else {
+                                    desc = subtitle;
+                                }
                             }
+                            responseData[i][1] = desc;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        responseData[i][1] = desc;
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
+                    strings = responseData;
+                    recyclerViewAdapter = new CustomAdapter();
+                    recyclerView.setAdapter(recyclerViewAdapter);
                 }
-                strings = responseData;
-                recyclerViewAdapter = new CustomAdapter();
-                recyclerView.setAdapter(recyclerViewAdapter);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "JSONArrayRequest Error: " + error.getMessage());
-                recyclerViewAdapter = new CustomAdapter();
-                recyclerView.setAdapter(recyclerViewAdapter);}
-        });
-        queue.add(jsonRequest);
-        //End Network Stuff
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, "JSONArrayRequest Error: " + error.getMessage());
+                    recyclerViewAdapter = new CustomAdapter();
+                    recyclerView.setAdapter(recyclerViewAdapter);
+                }
+            });
+            queue.add(jsonRequest);
+            //End Network Stuff
+        } else {
+            recyclerViewAdapter = new CustomAdapter();
+            recyclerView.setAdapter(recyclerViewAdapter);
+            Toast.makeText(this, "No Internet Connection Found, Loading Cached Data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
     }
 
     public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
