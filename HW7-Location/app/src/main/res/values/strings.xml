@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">HW5-NetworkRequests</string>
+    <string name="menu_action_settings">Settings</string>
+    <string name="menu_action_about_us">About Us</string>
+    <string name="alert_dialog">Alert Dialog</string>
+    <string name="dialog_title">This is an Alert Dialog.</string>
+    <string name="dialog_message">This is the Alert Dialog Message Text.  YOU HAVE BEEN WARNED</string>
+    <string name="author_jeremy_duke">Author: Jeremy Duke</string>
+    <string name="assignment_hw4_navs_and_dialogs">Assignment: HW7 - Location</string>
+    <string name="class_ad340_mobile_app_development">Class: AD340 - Mobile App Development</string>
+    <string name="menu_action_recycler">Recycler</string>
+</resources>
