@@ -19,4 +19,11 @@
         android:icon="@drawable/ic_info_white"
         />
 
+    <item
+        android:id="@+id/action_location"
+        android:title="@string/menu_action_location"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_map_white"
+        />
+
 </menu>

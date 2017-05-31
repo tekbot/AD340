@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
             Intent aboutIntent = new Intent(this, AboutActivity.class);
             startActivity(aboutIntent);
         }
+        if (item.getItemId() == R.id.action_location) {
+            Intent locationIntent = new Intent(this, LocationActivity.class);
+            startActivity(locationIntent);
+        }
         return super.onOptionsItemSelected(item);
     }
 }
