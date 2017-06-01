@@ -10,7 +10,11 @@
     <string name="class_ad340_mobile_app_development">Class: AD340 - Mobile App Development</string>
     <string name="menu_action_recycler">Recycler</string>
     <string name="menu_action_location">Location</string>
-    <string name="latitude_label">Lat:</string>
-    <string name="longitude_label">Lon:</string>
+    <string name="latitude_label">Lat</string>
+    <string name="longitude_label">Lon</string>
     <string name="no_location_detected">No Location Detected</string>
+    <string name="service_not_available">Address Service Not Available</string>
+    <string name="invalid_lat_long_used">Invalid Lat/Long in Location Data</string>
+    <string name="no_address_found">Address Not Found</string>
+    <string name="address_found">Address Found!</string>
 </resources>
