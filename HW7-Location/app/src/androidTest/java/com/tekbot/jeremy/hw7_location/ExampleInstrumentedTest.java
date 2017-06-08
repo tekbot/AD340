@@ -1,4 +1,4 @@
-package com.example.jeremy.hw7_location;
+package com.tekbot.jeremy.hw7_location;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.jeremy.hw7_location", appContext.getPackageName());
+        assertEquals("com.tekbot.jeremy.hw7_location", appContext.getPackageName());
     }
 }

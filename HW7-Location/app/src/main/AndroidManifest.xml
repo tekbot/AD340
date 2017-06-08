@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.jeremy.hw7_location">
+    package="com.tekbot.jeremy.hw7_location">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -14,35 +14,35 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".FetchAddressIntentService"
+            android:name="com.tekbot.jeremy.hw7_location.FetchAddressIntentService"
             android:exported="false"/>
-        <activity android:name="com.example.jeremy.hw7_location.MainActivity">
+        <activity android:name="com.tekbot.jeremy.hw7_location.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.jeremy.hw7_location.AboutActivity"
-            android:parentActivityName="com.example.jeremy.hw7_location.MainActivity" >
+        <activity android:name="com.tekbot.jeremy.hw7_location.AboutActivity"
+            android:parentActivityName="com.tekbot.jeremy.hw7_location.MainActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.jeremy.hw7_location.MainActivity" />
+                android:value="com.tekbot.jeremy.hw7_location.MainActivity" />
         </activity>
-        <activity android:name="com.example.jeremy.hw7_location.RecyclerActivity"
-            android:parentActivityName="com.example.jeremy.hw7_location.MainActivity" >
+        <activity android:name="com.tekbot.jeremy.hw7_location.RecyclerActivity"
+            android:parentActivityName="com.tekbot.jeremy.hw7_location.MainActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.jeremy.hw7_location.MainActivity" />
+                android:value="com.tekbot.jeremy.hw7_location.MainActivity" />
         </activity>
-        <activity android:name="com.example.jeremy.hw7_location.LocationActivity"
-            android:parentActivityName="com.example.jeremy.hw7_location.MainActivity" >
+        <activity android:name="com.tekbot.jeremy.hw7_location.LocationActivity"
+            android:parentActivityName="com.tekbot.jeremy.hw7_location.MainActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.jeremy.hw7_location.MainActivity" />
+                android:value="com.tekbot.jeremy.hw7_location.MainActivity" />
         </activity>
 
         <meta-data

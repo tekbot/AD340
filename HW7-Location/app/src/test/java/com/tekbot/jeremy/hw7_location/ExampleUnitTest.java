@@ -1,4 +1,4 @@
-package com.example.jeremy.hw7_location;
+package com.tekbot.jeremy.hw7_location;
 
 import org.junit.Test;
 

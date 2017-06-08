@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.jeremy.hw7_location.MainActivity">
+    tools:context="com.tekbot.jeremy.hw7_location.MainActivity">
 
     <include layout="@layout/toolbar" />
 

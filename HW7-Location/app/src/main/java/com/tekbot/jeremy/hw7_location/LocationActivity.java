@@ -1,4 +1,4 @@
-package com.example.jeremy.hw7_location;
+package com.tekbot.jeremy.hw7_location;
 
 
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -146,14 +145,12 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
     public void onConnectionFailed(ConnectionResult result) {
         // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
         // onConnectionFailed.
-        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
     }
 
     @Override
     public void onConnectionSuspended(int cause) {
         // The connection to Google Play services was lost for some reason. We call connect() to
         // attempt to re-establish the connection.
-        Log.i(TAG, "Connection suspended");
         mGoogleApiClient.connect();
     }
 

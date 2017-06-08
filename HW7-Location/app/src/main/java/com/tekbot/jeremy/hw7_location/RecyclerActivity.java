@@ -1,4 +1,4 @@
-package com.example.jeremy.hw7_location;
+package com.tekbot.jeremy.hw7_location;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
