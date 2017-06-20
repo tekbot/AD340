@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,23 +90,22 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
         // applications that do not require a fine-grained location and that do not need location
         // updates. Gets the best and most recent location currently available, which may be null
         // in rare cases when a location is not available.
-        if (checkSelfPermission(ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            //Display the Lat/Long
-            mLatitudeText.setText(String.format("%s: %f", mLatitudeLabel, mLastLocation.getLatitude()));
-            mLongitudeText.setText(String.format("%s: %f", mLongitudeLabel,  mLastLocation.getLongitude()));
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (mLastLocation != null) {
+                //Display the Lat/Long
+                mLatitudeText.setText(String.format("%s: %f", mLatitudeLabel, mLastLocation.getLatitude()));
+                mLongitudeText.setText(String.format("%s: %f", mLongitudeLabel,  mLastLocation.getLongitude()));
 
-            startIntentService();
-            mAddressRequested = true;
-            mLocationAddressTextView.setText(mAddressOutput);
+                startIntentService();
+                mAddressRequested = true;
+                mLocationAddressTextView.setText(mAddressOutput);
 
-            MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
-        } else {
-            Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
+                MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+                mapFragment.getMapAsync(this);
+            } else {
+                Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
